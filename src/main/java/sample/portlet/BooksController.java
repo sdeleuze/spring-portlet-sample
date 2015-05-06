@@ -35,8 +35,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
+import org.springframework.web.portlet.ModelAndView;
 import org.springframework.web.portlet.bind.PortletRequestDataBinder;
+import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 import org.springframework.web.portlet.util.PortletUtils;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import sample.domain.Book;
 import sample.domain.BookValidator;
@@ -72,6 +75,14 @@ public class BooksController {
 	public String listBooks(Model model) {
 		model.addAttribute("books", bookService.getAllBooks());
         return "books";
+	}
+
+	@ResourceMapping("json")
+	public ModelAndView listBooksJson() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("books", bookService.getAllBooks());
+		mav.setView(new MappingJackson2JsonView());
+		return mav;
 	}
 
 	// view details of a book

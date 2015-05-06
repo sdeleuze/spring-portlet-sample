@@ -29,6 +29,8 @@
 			<th></th>
 		</tr>
 
+		<a href="<portlet:resourceURL id="json"></portlet:resourceURL>">View JSON</a>
+
 		<c:forEach items="${books}" var="book">
 			<tr>
 				<td>${book.author}</td>
